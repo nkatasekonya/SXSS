@@ -1,2 +1,0 @@
-http://localhost/hyp_lab/index.php?email={payload}&password=12345
-http://localhost/hyp_lab/index.php?email=nkata@gmail.com&password={payload}

@@ -20,6 +20,7 @@ def render_ui() -> None:
     [1]  -h:     help manual (getting started)
     [2]  -d:     detect for XSS vulnerabilities
     [3]  -g:     generate XSS payloads
+    [4]  -v:     display failed attempts (verbose) 
     """)
 
 
@@ -57,7 +58,8 @@ def get_arguments() -> dict:
     """Get command line arguments (sys.argv returns a list with the first element being the name of the script"""
     args = {
         "d": "",
-        "g": ""
+        "g": "",
+        "v": ""
     }
 
     index: int = 0
@@ -71,8 +73,9 @@ def get_arguments() -> dict:
             args["d"] = sys.argv.__getitem__(index)
         elif arg == "-g":
             args["g"] = sys.argv.__getitem__(index)
+        elif arg == "-v":
+            args["v"] = sys.argv.__getitem__(index)
 
         index += 1
 
     return args
-

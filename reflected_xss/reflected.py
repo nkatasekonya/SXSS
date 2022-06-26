@@ -3,22 +3,23 @@ import subprocess
 from pyfiglet import figlet_format
 
 
+# integrate auth: setting cookies or token
 def http_get(_link) -> tuple:
     req = requests.get(_link)
     return req.status_code, req.text
 
 
 def format_endpoint(_endpoint: str, _payload: str) -> dict:
-    formatted_endpoint = {"endpoint": _endpoint.replace("{payload}", _payload.replace("\"", "'")).replace("\n", ""), "payload": _payload.replace("\"", "'")}
+    formatted_endpoint = {"endpoint": _endpoint.replace("{payload}", _payload.replace("\"", "'")).replace("\n", ""), "payload": _payload.replace("\"", "'").replace("\n", "")}
     return formatted_endpoint
 
 
 def prepare_requests() -> list:
     formatted_endpoints: list = []
 
-    with open("../endpoints.txt") as endpoints:
+    with open("reflected_xss/endpoints.txt") as endpoints:
         for endpoint in endpoints:
-            with open("./payloads.db") as payloads:
+            with open("reflected_xss/payloads.db") as payloads:
                 for payload in payloads:
                     formatted_endpoints.append(format_endpoint(endpoint, payload))
             payloads.close()
@@ -43,7 +44,5 @@ def perform_requests() -> None:
         else:
             _failed: str = "\u001b[31m [failed]      "
             print(_failed + endpoint["endpoint"])
+
     print("\u001b[31m ------------------------------------------------------------------------------------------------")
-
-
-perform_requests()
