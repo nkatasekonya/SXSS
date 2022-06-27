@@ -39,11 +39,15 @@ def help_manual() -> None:
     print("\n\u001b[32mUSAGE")
 
     print("\u001b[0m     -d: detect cross-site scripting vulnerabilities against provided endpoints")
-    print("\u001b[36m        python3 sxss.py -x")
+    print("\u001b[36m        python3 sxss.py -d")
+    print("\u001b[36m")
+
+    print("\u001b[0m     -v: display failed attempts (verbose)")
+    print("\u001b[36m        python3 sxss.py -d -v")
     print("\u001b[36m")
 
     print("\u001b[0m     -g: generate cross-site scripting payloads for a given URL")
-    print("\u001b[36m        python3 sxss.py -p")
+    print("\u001b[36m        python3 sxss.py -g")
     print("\u001b[36m")
 
     print("\u001b[0m     -h: display the help page (manual)")

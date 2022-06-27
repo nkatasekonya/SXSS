@@ -10,7 +10,8 @@ def http_get(_link) -> tuple:
 
 
 def format_endpoint(_endpoint: str, _payload: str) -> dict:
-    formatted_endpoint = {"endpoint": _endpoint.replace("{payload}", _payload.replace("\"", "'")).replace("\n", ""), "payload": _payload.replace("\"", "'").replace("\n", "")}
+    formatted_endpoint = {"endpoint": _endpoint.replace("{payload}", _payload.replace("\"", "'")).replace("\n", ""),
+                          "payload": _payload.replace("\"", "'").replace("\n", "")}
     return formatted_endpoint
 
 
