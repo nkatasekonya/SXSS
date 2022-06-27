@@ -39,6 +39,13 @@ def perform_requests() -> None:
     print("\u001b[31m ------------------------------------------------------------------------------------------------")
     for endpoint in endpoints:
         status_code, DOM = http_get(endpoint["endpoint"])
+        """
+        To verify the XSS vulnerability
+            1. We are checking if the requests was successful (status_code == 200)
+            2. If the original xss payload is present inside the DOM
+                > it's presence means that the payload was not filtered at all 
+        Read More: https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/07-Input_Validation_Testing/01-Testing_for_Reflected_Cross_Site_Scripting
+        """
         if status_code == 200 and endpoint["payload"] in DOM:
             _passed: str = "\u001b[32m [passed]      "
             print(_passed + endpoint["endpoint"])

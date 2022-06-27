@@ -18,9 +18,10 @@ def render_ui() -> None:
     No   Name    Description
     ---  ----    -----------------------------
     [1]  -h:     help manual (getting started)
-    [2]  -d:     detect for XSS vulnerabilities
-    [3]  -g:     generate XSS payloads
-    [4]  -v:     display failed attempts (verbose) 
+    [2]  -l:     extract endpoints from provided URL
+    [3]  -d:     detect for XSS vulnerabilities
+    [4]  -g:     generate XSS payloads
+    [5]  -v:     display failed attempts (verbose) 
     """)
 
 
@@ -37,6 +38,10 @@ def help_manual() -> None:
           "     parts of the application. It can, for example be used to steal cookies from admin pages")
 
     print("\n\u001b[32mUSAGE")
+
+    print("\u001b[0m     -l: extract endpoints from provided URL")
+    print("\u001b[36m        python3 sxss.py -l http://example.com")
+    print("\u001b[36m")
 
     print("\u001b[0m     -d: detect cross-site scripting vulnerabilities against provided endpoints")
     print("\u001b[36m        python3 sxss.py -d")
@@ -61,6 +66,7 @@ def help_manual() -> None:
 def get_arguments() -> dict:
     """Get command line arguments (sys.argv returns a list with the first element being the name of the script"""
     args = {
+        "l": "",
         "d": "",
         "g": "",
         "v": ""
@@ -73,6 +79,8 @@ def get_arguments() -> dict:
             render_ui()
         elif arg == "-h":
             help_manual()
+        elif arg == "-l":
+            args["l"] = sys.argv.__getitem__(index+1)  # save URL
         elif arg == "-d":
             args["d"] = sys.argv.__getitem__(index)
         elif arg == "-g":
