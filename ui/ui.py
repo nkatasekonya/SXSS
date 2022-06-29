@@ -21,7 +21,6 @@ def render_ui() -> None:
     [2]  -l:     extract endpoints from provided URL
     [3]  -d:     detect for XSS vulnerabilities
     [4]  -g:     generate XSS payloads
-    [5]  -v:     display failed attempts (verbose) 
     """)
 
 
@@ -45,10 +44,6 @@ def help_manual() -> None:
 
     print("\u001b[0m     -d: detect cross-site scripting vulnerabilities against provided endpoints")
     print("\u001b[36m        python3 sxss.py -d")
-    print("\u001b[36m")
-
-    print("\u001b[0m     -v: display failed attempts (verbose)")
-    print("\u001b[36m        python3 sxss.py -d -v")
     print("\u001b[36m")
 
     print("\u001b[0m     -g: generate cross-site scripting payloads for a given URL")
@@ -82,11 +77,9 @@ def get_arguments() -> dict:
         elif arg == "-l":
             args["l"] = sys.argv.__getitem__(index+1)  # save URL
         elif arg == "-d":
-            args["d"] = sys.argv.__getitem__(index)
+            args["d"] = sys.argv.__getitem__(index+1)  # save URL
         elif arg == "-g":
             args["g"] = sys.argv.__getitem__(index)
-        elif arg == "-v":
-            args["v"] = sys.argv.__getitem__(index)
 
         index += 1
 
