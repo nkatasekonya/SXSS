@@ -20,9 +20,9 @@ def extract_endpoints(_url: str) -> list:
     html = requests.get(_url).text
     regex_url_compiled = re.compile(regex_url, re.VERBOSE)
 
-    for data in regex_url_compiled.findall(html):
-        if data is not None:
-            _endpoints.append(data)
+    for e in regex_url_compiled.findall(html):
+        if e is not None:
+            _endpoints.append(e)
 
     soup = BeautifulSoup(html, 'html.parser')
     for link in soup.find_all(['iframe', 'script', 'link', 'a', 'form']):
@@ -45,6 +45,9 @@ def get_formatted_urls(_url: str) -> list:
     _endpoints: list = extract_endpoints(_url)
 
     for link in _endpoints:
+        if link.endswith("#"):
+            link = link.removesuffix("#")
+
         if link.startswith("/"):
             _formatted_urls.append(_url + "/" + link.removeprefix("/"))
         elif link.startswith("./"):
@@ -76,7 +79,6 @@ def get_forms(_url) -> list:
     forms = soup.find_all(['form'])
 
     if forms:
-
         for form in forms:
             _action: str = form.get('action', "Not Found")
             _method: str = form.get('method', "Not Found")
@@ -84,11 +86,8 @@ def get_forms(_url) -> list:
 
             for _input in form.find_all('input'):
                 _type = _input.get('type', '')
-                if _type != 'hidden':
-                    if _type != 'submit':
-                        if _type != 'reset':
-                            if _type != 'button':
-                                _inputs.append(
+                if _type != 'hidden' and _type != 'submit' and _type != 'reset' and _type != 'button':
+                    _inputs.append(
                                     {"name": _input.get('name', ''), "type": _type, "value": _input.get('value', '')})
 
             select_tags = form.find_all("select")
@@ -104,6 +103,8 @@ def get_forms(_url) -> list:
                 _inputs.append({"name": textarea.get('name', ''), "type": textarea.get('type', ''),
                                 "value": textarea.get('value', '')})
 
+            if _action == "#":
+                _action = ""
             formatted_data.append({
                 "action": _action,
                 "method": _method,
@@ -115,8 +116,6 @@ def get_forms(_url) -> list:
 
 def display_forms(forms, _url) -> None:
     if forms:
-        # subprocess.run(["clear"])
-        # print("\u001b[31m" + figlet_format("SXSS", font="standard"))
         print("\n")
         print("\u001b[36m [!] Forms On: " + _url)
         print(

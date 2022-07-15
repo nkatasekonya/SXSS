@@ -13,11 +13,6 @@ def http_post(_link, _data) -> tuple:
     return req.status_code, req.text
 
 
-def http_put(_link, _data) -> tuple:
-    req = requests.put(_link, data=_data, cookies={'id': 'cookie'})
-    return req.status_code, req.text
-
-
 def format_endpoint(_endpoint: str, _payload: str) -> dict:
     formatted_endpoint = {"endpoint": _endpoint.replace("{payload}", _payload.replace("\"", "'")).replace("\n", ""),
                           "payload": _payload.replace("\"", "'").replace("\n", "")}
@@ -33,6 +28,13 @@ def format_data(_post: dict, _payload: str, key) -> tuple:
         else:
             _post[key] = p
     return _post, key
+
+
+def format_str(_endpoint: str):
+    if len(_endpoint) > 130:
+        new_endpoint = _endpoint[0:130] + "\n               " + _endpoint[130:len(_endpoint)]
+        return new_endpoint
+    return _endpoint
 
 
 def fuzzing(_requests: list) -> list:
@@ -88,31 +90,5 @@ def fuzzing(_requests: list) -> list:
                         print()
 
             payloads.close()
-        elif req["method"].lower() == "put":
-            key = ""
-            with open("reflected_xss/payloads.db") as payloads:  # payloads.db
-                for payload in payloads:
-                    _data, key = format_data(req["data"], payload, key)
-                    status_code, DOM = http_put(req["endpoint"], _data)
-
-                    if status_code == 200 and payload.replace("\"", "'").replace("\n", "") in DOM:
-                        _passed: str = "\u001b[32m [passed]      "
-                        print(_passed + format_str(req["endpoint"]))
-                        print("      Payload: " + str(req["data"]))
-                        print()
-                    else:
-                        _failed: str = "\u001b[31m [failed]      "
-                        print(_failed + format_str(req["endpoint"]))
-                        print("      Payload: " + str(req["data"]))
-                        print()
-            payloads.close()
     print("\u001b[31m ------------------------------------------------------------------------------------------------")
     return success
-    
-    
-def format_str(_endpoint: str):
-    if len(_endpoint) > 130:
-        new_endpoint = _endpoint[0:130] + "\n               " + _endpoint[130:len(_endpoint)]
-        return new_endpoint
-    return _endpoint
-   

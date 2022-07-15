@@ -3,9 +3,8 @@ import subprocess
 from pyfiglet import figlet_format
 
 
-def generate_payloads() -> list:
+def generate_payloads(payload_script: str) -> list:
     generated_payloads: list = []
-    payload_script = config["script"]
 
     with open("stored_xss/payloads.db") as payloads:
         for payload in payloads:
@@ -15,8 +14,8 @@ def generate_payloads() -> list:
     return generated_payloads
 
 
-def display_payloads() -> None:
-    payloads = generate_payloads()
+def display_payloads(payload_script: str) -> None:
+    payloads = generate_payloads(payload_script)
 
     subprocess.run(["clear"])
     print("\u001b[31m" + figlet_format("SXSS", font="standard"))
