@@ -18,6 +18,6 @@ if __name__ == '__main__':
         reqs = prepare_requests(args["d"])
         fuzzing(reqs)
 
-    # run: python3 sxss.py -g http://example.com/xss.js
+    # run: python3 sxss.py -g /home/nkata/Desktop/SXSS/stored_xss/xss.js
     if args["g"] != "":
         display_payloads(args["g"])
