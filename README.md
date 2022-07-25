@@ -19,4 +19,5 @@ python3 ./sxss.py
 cd stored_xss  
 flask run --host=<<server_ip>>
 ```
-- Update `stored_xss/xss.js` with the IP address of the server
+- We have provided a script `stored_xss/xss.js`, which when executed will send data about the victim back to the server
+- Update endpoint with the IP address of the server
