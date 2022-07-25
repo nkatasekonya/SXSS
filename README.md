@@ -19,4 +19,4 @@ python3 ./sxss.py
 cd stored_xss  
 flask run --host=<<server_ip>>
 ```
-- Update stored_xss/xss.js with the IP address of the server
+- Update `stored_xss/xss.js` with the IP address of the server
