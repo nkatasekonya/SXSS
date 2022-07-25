@@ -15,7 +15,7 @@ let language = window.navigator.language
 fetch("http://127.0.0.1:5000/hit", {
     method: "POST",
     headers: {
-        "Content_Type": "application/json"
+        "Content-Type": "application/json"
     },
     body: JSON.stringify({
         host: host,
