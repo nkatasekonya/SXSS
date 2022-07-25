@@ -15,3 +15,6 @@ python3 ./sxss.py
 ```
 
 ## Usage
+cd stored_xss
+flask run --host=<<server_ip>>
+- Update stored_xss/xss.js with the IP address of the server
