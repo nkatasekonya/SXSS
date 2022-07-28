@@ -18,8 +18,20 @@ def about():
 @app.route("/hit", methods=["POST"])
 def hit():
     data = request.get_json()  # <--- this is a dict
-    print("IP:: " + request.remote_addr)
-    print("INCOMING DATA:: " + str(data))
+    
+    print("\nRemote IP Address      :" + request.remote_addr)
+    #  print("INCOMING DATA:: " + str(data))
+    print("\nHost                   :" + data["host"])  
+    print("\nOrigin                 :" + data["origin"])
+    print("\nURL                    :" + data["url"])
+    print("\nCookie                 :" + data["cookie"])
+    print("\nDOM Title              :" + data["dom_title"])
+    print("\nOS                     :" + data["OS"])
+    print("\nUser_Agent             :" + data["user_agent"])
+    print("\nBrowser_Version        :" + data["browser_version"])
+    print("\nLanguage               :" + data["language"])
+    print("\nDOM                    :" + data["DOM"])
+    
     return "Success", 200
 
 
